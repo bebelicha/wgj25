@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     [Tooltip("Chance de 0.0 a 1.0 para um evento de NPC ocorrer a cada turno.")]
     public float npcEventChance = 0.4f;
+
+    [Tooltip("Duração (s) que o diálogo do NPC fica visível.")]
+    public float npcDialogueDuration = 3f;
     private List<string> availableRoxaDialogues;
     private List<string> availableRosaDialogues;
     void Awake()
@@ -127,7 +130,7 @@ public class GameManager : MonoBehaviour
         targetList.RemoveAt(randomIndex);
         character.ChangeEnergy(-10);
         character.fadiga += 5;
-        yield return StartCoroutine(uiManager.ShowNpcDialogue(dialogueKey, 3f));
+        yield return StartCoroutine(uiManager.ShowNpcDialogue(dialogueKey, npcDialogueDuration));
         uiManager.UpdateUI(character, currentTurn);
     }
     void NextTurn()
